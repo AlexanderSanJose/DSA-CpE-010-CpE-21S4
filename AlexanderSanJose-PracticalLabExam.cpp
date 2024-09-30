@@ -2,42 +2,55 @@
 using namespace std;
 
 #define MAX 5 
-class Stack 
+
+class Queue 
 {
-    int top;
+    int front, rear;
     int arr[MAX];
 
 public:
-    Stack() { top = -1; }
+    Queue() { front = -1; rear = -1; }
 
-    // To push an element onto the stack
+    // enqueue an element into the queue
     void push(int value) 
-	{
-        if (top >= MAX - 1) 
-		{
+    {
+        if (rear >= MAX - 1) 
+        {
             cout << "Overflow.\n";
-        } else
-		{
-            arr[++top] = value;
+        } 
+        else 
+        {
+            if (front == -1) front = 0; // If thefirst element is added set front to 0
+            arr[++rear] = value;
             cout << value << " has been inserted completely.\n";
         }
     }
-     // Too pop an element from the stack
-    void pop() {
-        if (top < 0) {
+
+    // dequeue an element from the queue
+    void pull() 
+    {
+        if (front == -1 || front > rear) 
+        {
             cout << "Underflow.\n";
-        } else {
-            cout << arr[top] << " is being deleted\n";
-            top--;
+        } 
+        else 
+        {
+            cout << arr[front] << " is being deleted\n";
+            front++;
         }
     }
 
-    //To function display the element 
-    void display() {
-        if (top < 0) {
-            cout << "The Stack is empty.\n";
-        } else {
-            for (int i = 0; i <= top; i++) {
+    // To display the elements in the queue
+    void display() 
+    {
+        if (front == -1 || front > rear) 
+        {
+            cout << "The Queue is empty.\n";
+        } 
+        else 
+        {
+            for (int i = front; i <= rear; i++) 
+            {
                 cout << arr[i] << " ";
             }
             cout << endl;
@@ -47,23 +60,21 @@ public:
 
 int main() 
 {
-    Stack stack;
+    Queue queue;
 
+    queue.push(10);
+    queue.push(24);
+    queue.push(28);
+    queue.push(32);
+    queue.push(30);
 
-    stack.push(10);
-    stack.push(24);
-	stack.push(28);
-	stack.push(32);
-	stack.push(30);
+    queue.display();
 
-    stack.display();
-
-    stack.pop();
-    stack.pop();
-    stack.pop();
-    stack.pop();
-    stack.pop();
- 
+    queue.pull();
+    queue.pull();
+    queue.pull();
+    queue.pull();
+    queue.pull();
 
     return 0;
 }
